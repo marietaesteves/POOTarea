@@ -3,11 +3,13 @@ package Encapsulacion;
 public class Cuenta {
 	private String titular;
 	private double saldo;
+	private int Pin;
 	
-	public Cuenta(String titular, double saldo) {
+	public Cuenta(String titular, double saldo, int Pin) {
 		super();
 		this.titular = titular;
 		this.saldo = saldo;
+		this.Pin = Pin;
 	}
 	
 	// Método para sumar dinero al saldo
@@ -22,7 +24,8 @@ public class Cuenta {
     }
 	
 	// Método para restar dinero al saldo (Validación de saldo negativo)
-    public void retirar(double monto) {
+    public void retirar(double monto, int PinIngresado) {
+    	if(Pin == PinIngresado) {
         if (monto > 0 && monto <= this.saldo) {
             this.saldo -= monto;
             System.out.println("Retiro exitoso: -Q" + monto);
@@ -31,6 +34,9 @@ public class Cuenta {
         } else {
             System.out.println("Error: El monto a retirar debe ser positivo.");
         }
+    } else {
+    	System.out.println("Error: Pin Incorrecto");
+    }
     }
     
  // Método para consultar el estado de la cuenta

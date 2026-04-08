@@ -11,6 +11,7 @@ public class Main {
 		Persona persona2 = new Persona("María", "López", 22);
 		Persona persona3 = new Persona("Carlos", "García", 19);
 		
+		
 		// Mostrar los datos de cada objeto llamando al método mostrar()
 		System.out.println("--- Mostrando Persona 1 ---");
 		persona1.mostrar();
@@ -20,6 +21,26 @@ public class Main {
 		
 		System.out.println("\n--- Mostrando Persona 3 ---");
 		persona3.mostrar();
+		
+		// AGREGANDO PERSONA 4 PARA MOSTRAR LA VALIDACIÓN
+		System.out.println("\n--- Intentando crear Persona 4 con edad negativa ---");
+
+		try {
+		    // Intentamos crear el objeto con -12
+		    Persona persona4 = new Persona("Carlos", "García", -12);
+		    
+		    // Si el constructor capturó el error internamente, podemos mostrar los datos:
+		    persona4.mostrar();
+		    
+		    System.out.println("Nota: La edad se validó es negativa y se asignó 0 automáticamente.");
+
+		} catch (Exception e) {
+		    // Este bloque se ejecuta si el error "sube" hasta el main
+		    System.out.println("⚠️ No se pudo crear a la persona correctamente.");
+		    System.out.println("Razón: " + e.getMessage());
+		}
+		
+	
 		
 //######################################################################
         //CLASE #2
@@ -47,8 +68,8 @@ public class Main {
  //######################################################################
         //CLASE #3
      // 1. Crear 2 productos con precios iniciales
-        Producto prod1 = new Producto(101, "Laptop Gamer", 8500.0);
-        Producto prod2 = new Producto(102, "Mouse Óptico", 250.0);
+        Producto prod1 = new Producto(101, "Laptop Gamer", 8500.0, 14);
+        Producto prod2 = new Producto(102, "Mouse Óptico", 250.0, 12);
         
         System.out.println("=====================================");
         
@@ -64,24 +85,37 @@ public class Main {
         System.out.println("\n--- Precios con Descuento ---");
         prod1.mostrarInfo();
         prod2.mostrarInfo();
+     // --- PRUEBA DEL MÉTODO VENDER ---
+        System.out.println("\n--- Realizando Ventas ---");
+        
+        // Venta exitosa (descuenta del stock)
+        prod1.Vender(4); 
+        
+        // Intento de venta mayor al stock (debería mostrar el error que programamos)
+        prod2.Vender(20); 
+        
+        System.out.println("\n--- Estado Final de Inventario ---");
+        prod1.mostrarInfo();
+        prod2.mostrarInfo();
     
 //######################################################################
     //CLASE # 4
      // 1. Crear una cuenta con saldo inicial
         System.out.println("=====================================");
         
-        Cuenta miCuenta = new Cuenta ("Carlos Galicia", 500.0);
+        Cuenta miCuenta = new Cuenta ("Carlos Galicia", 500.0, 4567 );
         miCuenta.mostrarSaldo();
         System.out.println("----------------------------");
 
         // 2. Realizar un depósito
         miCuenta.depositar(200.0); // Saldo debería ser 700
         
-        // 3. Realizar un retiro válido
-        miCuenta.retirar(150.0);   // Saldo debería ser 550
+        // 3. Realizar un retiro válido y uno invalido ingresando el pin
+        miCuenta.retirar(150.0, 4567);
+        miCuenta.retirar( 100, 1210 );
         
         // 4. Intentar un retiro inválido (más de lo que hay)
-        miCuenta.retirar(1000.0);  // Debería mostrar error de fondos insuficientes
+        miCuenta.retirar(1000.0, 4567);  // Debería mostrar error de fondos insuficientes
         
         // 5. Intentar un depósito negativo
         miCuenta.depositar(-50.0); // Debería mostrar error de monto positivo
@@ -157,6 +191,8 @@ public class Main {
         
            
     }
+ 
+ 
     
 
 //	
